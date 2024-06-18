@@ -19,9 +19,11 @@
     },
     "windows": [
       {
-        "title": "rust版中央监护系统",
-        "width": 800,
-        "height": 600
+        "title": "👻囧囧囧🌻",
+        "width": 1200,
+        "height": 700,
+        "resizable": false,
+        "decorations": true  
       }
     ],
     "security": {

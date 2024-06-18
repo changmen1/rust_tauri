@@ -1,5 +1,4 @@
 import { useState } from "react";
-import reactLogo from "./assets/react.svg";
 import { invoke } from "@tauri-apps/api/tauri";
 import "./App.css";
 
@@ -14,22 +13,22 @@ function App() {
 
   return (
     <div className="container">
-      <h1>Welcome to David!</h1>
-
+      <h1>👻囧囧囧🌻</h1>
       <div className="row">
-        <a href="https://vitejs.dev" target="_blank">
-          <img src="/vite.svg" className="logo vite" alt="Vite logo" />
+        <a href="https://x.com/home?lang=zh" target="_blank">
+          <img src="/x.svg" className="logo Github" alt="twitter logo" />
         </a>
-        <a href="https://tauri.app" target="_blank">
-          <img src="/tauri.svg" className="logo tauri" alt="Tauri logo" />
-        </a>
-        <a href="https://reactjs.org" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
+        <a href="https://github.com/changmen1" target="_blank">
+          <img src="/github.svg" className="logo Github" alt="Github logo" />
         </a>
       </div>
-
-      <p>Click on the Tauri, Vite, and React logos to learn more.</p>
-
+      <p>If this helps you, please click a Star for me on GitHub</p>
+      <p>
+        &copy; Copyright 2024
+        <a href="https://github.com/changmen1" target="_blank">
+          Zxl
+        </a>
+      </p>
       <form
         className="row"
         onSubmit={(e) => {
@@ -44,7 +43,6 @@ function App() {
         />
         <button type="submit">Greet</button>
       </form>
-
       <p>{greetMsg}</p>
     </div>
   );
