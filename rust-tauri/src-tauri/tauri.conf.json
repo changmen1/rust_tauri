@@ -21,15 +21,18 @@
         "open": true,
         "save": true,
         "message": true
+      },
+      "window": {
+        "all": true
       }
     },
     "windows": [
       {
-        "title": "👻囧囧囧🌻",
+        "title": "中央监护系统",
         "width": 1200,
         "height": 700,
         "resizable": true,
-        "decorations": true  
+        "decorations": false
       }
     ],
     "security": {

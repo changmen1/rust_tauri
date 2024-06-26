@@ -93,14 +93,13 @@ button {
 @media (prefers-color-scheme: dark) {
   :root {
     color: #ffc0cb;
-    background-image: url(/nestjsbanner.png);
+    /* background-image: url(/nestjsbanner.png); */
     background-position: top;
     background-size: cover;
     background-repeat: no-repeat;
-    background-color: #090909;
+    /* background-color: #090909; */
     background-attachment: fixed;
     color: #fff;
-    min-height: 600px;
   }
 
   a:hover {
