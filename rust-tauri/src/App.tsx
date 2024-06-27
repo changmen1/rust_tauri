@@ -1,3 +1,5 @@
+// 弃用了BrowserRouter的这种路由方法  使用了路由管理的方法
+
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Login from "./views/login/login";
 import Index from "./views/index";

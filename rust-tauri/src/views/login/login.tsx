@@ -73,8 +73,9 @@ export default function Login() {
       password: data.get("password"),
     });
     if (data.get("username") == "admin" && data.get("password") == "123456") {
-      navigate("/index", { replace: true });
+      navigate("/Home");
     } else {
+      debugger;
       handleClickVariant("error")();
     }
   };

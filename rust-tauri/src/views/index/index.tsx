@@ -1,9 +1,6 @@
-import { useEffect, useState } from "react";
-import { invoke } from "@tauri-apps/api/tauri";
-import { dialog } from "@tauri-apps/api";
-import { Button } from "@mui/material";
-import { useSnackbar, VariantType } from "notistack";
-import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
+import { Suspense } from "react";
+import { useNavigate, Outlet } from "react-router-dom";
 import "./index.css";
 import * as React from "react";
 import { styled, useTheme, Theme, CSSObject } from "@mui/material/styles";
@@ -29,6 +26,7 @@ import CloseSharpIcon from "@mui/icons-material/CloseSharp";
 import CloseFullscreenSharpIcon from "@mui/icons-material/CloseFullscreenSharp";
 import MinimizeOutlinedIcon from "@mui/icons-material/MinimizeOutlined";
 import { appWindow } from "@tauri-apps/api/window";
+import { Container } from "@mui/material";
 
 const drawerWidth = 240;
 
@@ -126,35 +124,9 @@ function Index() {
   const handleDrawerClose = () => {
     setOpen(false);
   };
-  const [greetMsg, setGreetMsg] = useState("");
-  const [name, setName] = useState("");
-  const { enqueueSnackbar } = useSnackbar();
-
-  async function greet() {
-    setGreetMsg(await invoke("greet", { name }));
-  }
-  const handleWx = async () => {
-    try {
-      const selected = await dialog.message("zxl1907395787", {
-        title: "作者微信",
-        type: "info",
-        okLabel: "🤡",
-      });
-      console.log("Selected file:", selected);
-    } catch (error) {
-      console.error("Error opening dialog:", error);
-    }
-  };
-  const handleQuite = () => {
-    navigate("/", { replace: true });
-  };
-  const handleClickVariant = (variant: VariantType) => () => {
-    enqueueSnackbar("hhh", { variant });
-  };
 
   return (
-    <Box sx={{ display: "flex" }}>
-      <CssBaseline />
+    <>
       <AppBar position="fixed" open={open}>
         <Toolbar data-tauri-drag-region>
           <IconButton
@@ -204,125 +176,82 @@ function Index() {
           </Box>
         </Toolbar>
       </AppBar>
-      <Drawer variant="permanent" open={open}>
-        <DrawerHeader>
-          <IconButton onClick={handleDrawerClose}>
-            {theme.direction === "rtl" ? (
-              <ChevronRightIcon />
-            ) : (
-              <ChevronLeftIcon />
-            )}
-          </IconButton>
-        </DrawerHeader>
-        <Divider />
-        <List>
-          {["Home", "doctor", "Send email", "Drafts"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-                onClick={() => {
-                  console.log(text);
-                  // navigate(text);
-                }}
-              >
-                <ListItemIcon
+      <Box sx={{ display: "flex" }}>
+        <CssBaseline />
+        <Drawer variant="permanent" open={open}>
+          <DrawerHeader>
+            <IconButton onClick={handleDrawerClose}>
+              {theme.direction === "rtl" ? (
+                <ChevronRightIcon />
+              ) : (
+                <ChevronLeftIcon />
+              )}
+            </IconButton>
+          </DrawerHeader>
+          <Divider />
+          <List>
+            {["Home", "/Home/", "Send email", "Drafts"].map((text, index) => (
+              <ListItem key={text} disablePadding sx={{ display: "block" }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
+                  }}
+                  onClick={() => {
+                    console.log(text);
+                    navigate(text);
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-        <Divider />
-        <List>
-          {["All mail", "Trash", "Spam"].map((text, index) => (
-            <ListItem key={text} disablePadding sx={{ display: "block" }}>
-              <ListItemButton
-                sx={{
-                  minHeight: 48,
-                  justifyContent: open ? "initial" : "center",
-                  px: 2.5,
-                }}
-              >
-                <ListItemIcon
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+          <Divider />
+          <List>
+            {["All mail", "Trash", "Spam"].map((text, index) => (
+              <ListItem key={text} disablePadding sx={{ display: "block" }}>
+                <ListItemButton
                   sx={{
-                    minWidth: 0,
-                    mr: open ? 3 : "auto",
-                    justifyContent: "center",
+                    minHeight: 48,
+                    justifyContent: open ? "initial" : "center",
+                    px: 2.5,
                   }}
                 >
-                  {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
-                </ListItemIcon>
-                <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
-              </ListItemButton>
-            </ListItem>
-          ))}
-        </List>
-      </Drawer>
-      <Box component="main" sx={{ flexGrow: 1, p: 3 }}>
-        <DrawerHeader />
-        <div className="container">
-          <h1>👻囧囧囧🌻-🍍囧囧囧😶‍🌫️-😵囧囧囧🤡</h1>
-          <div className="row">
-            <a href="https://x.com/home?lang=zh" target="_blank">
-              <img src="/x.svg" className="logo Github" alt="twitter logo" />
-            </a>
-            <a href="https://github.com/changmen1" target="_blank">
-              <img
-                src="/github.svg"
-                className="logo Github"
-                alt="Github logo"
-              />
-            </a>
-            <a onClick={handleWx} target="_blank">
-              <img
-                src="/wechat.svg"
-                className="logo Github"
-                alt="Github logo"
-              />
-            </a>
-          </div>
-          <p>If this helps you, please click a Star for me on GitHub</p>
-          <p>
-            &copy; Copyright 2024 - Github
-            <a href="https://github.com/changmen1" target="_blank">
-              Zxl
-            </a>
-          </p>
-          <form
-            className="row"
-            onSubmit={(e) => {
-              e.preventDefault();
-              greet();
-            }}
-          >
-            <input
-              id="greet-input"
-              onChange={(e) => setName(e.currentTarget.value)}
-              placeholder="Enter a name..."
-            />
-            <button type="submit">Greet</button>
-          </form>
-          <p>{greetMsg}</p>
-          <div>
-            <Button variant="contained" onClick={handleQuite}>
-              退出登录
-            </Button>
-            <Button onClick={handleClickVariant("success")}>触发消息</Button>
-          </div>
-        </div>
+                  <ListItemIcon
+                    sx={{
+                      minWidth: 0,
+                      mr: open ? 3 : "auto",
+                      justifyContent: "center",
+                    }}
+                  >
+                    {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+                  </ListItemIcon>
+                  <ListItemText primary={text} sx={{ opacity: open ? 1 : 0 }} />
+                </ListItemButton>
+              </ListItem>
+            ))}
+          </List>
+        </Drawer>
+        <Container>
+          <section>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Outlet />
+            </Suspense>
+          </section>
+        </Container>
       </Box>
-    </Box>
+    </>
   );
 }
 
